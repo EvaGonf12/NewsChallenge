@@ -47,6 +47,9 @@
 		5886F2252663732D00C6B5BC /* ArticleDetailsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5886F2242663732D00C6B5BC /* ArticleDetailsDataManager.swift */; };
 		5886F2272663741500C6B5BC /* NewsChallengeDataManager+ArticlesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5886F2262663741500C6B5BC /* NewsChallengeDataManager+ArticlesList.swift */; };
 		5886F2292663743E00C6B5BC /* NewsChallengeDataManager+ArticleDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5886F2282663743E00C6B5BC /* NewsChallengeDataManager+ArticleDetails.swift */; };
+		5886F22F266376BF00C6B5BC /* ArticlesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5886F22E266376BF00C6B5BC /* ArticlesListViewModel.swift */; };
+		5886F231266376D700C6B5BC /* ArticlesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5886F230266376D700C6B5BC /* ArticlesListViewController.swift */; };
+		5886F234266376E900C6B5BC /* ArticlesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5886F233266376E900C6B5BC /* ArticlesListView.swift */; };
 		7076F992630D3B753EC8A03B /* Pods_NewsChallenge_NewsChallengeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BA211FB0375C707EC35CEC8 /* Pods_NewsChallenge_NewsChallengeUITests.framework */; };
 		C021D486425E64A34424CC27 /* Pods_NewsChallenge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632629F724C3DA106614C3B6 /* Pods_NewsChallenge.framework */; };
 		FA2A41A81BEAC870344A0B8D /* Pods_NewsChallengeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E7BBB9D48A20976710289FF /* Pods_NewsChallengeTests.framework */; };
@@ -118,6 +121,9 @@
 		5886F2242663732D00C6B5BC /* ArticleDetailsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailsDataManager.swift; sourceTree = "<group>"; };
 		5886F2262663741500C6B5BC /* NewsChallengeDataManager+ArticlesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewsChallengeDataManager+ArticlesList.swift"; sourceTree = "<group>"; };
 		5886F2282663743E00C6B5BC /* NewsChallengeDataManager+ArticleDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewsChallengeDataManager+ArticleDetails.swift"; sourceTree = "<group>"; };
+		5886F22E266376BF00C6B5BC /* ArticlesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesListViewModel.swift; sourceTree = "<group>"; };
+		5886F230266376D700C6B5BC /* ArticlesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesListViewController.swift; sourceTree = "<group>"; };
+		5886F233266376E900C6B5BC /* ArticlesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesListView.swift; sourceTree = "<group>"; };
 		632629F724C3DA106614C3B6 /* Pods_NewsChallenge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewsChallenge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BA211FB0375C707EC35CEC8 /* Pods_NewsChallenge_NewsChallengeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewsChallenge_NewsChallengeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		867919CE6F6358EDD54C3403 /* Pods-NewsChallengeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsChallengeTests.release.xcconfig"; path = "Target Support Files/Pods-NewsChallengeTests/Pods-NewsChallengeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -180,6 +186,7 @@
 		5886F1962662285B00C6B5BC /* NewsChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				5886F22B2663768100C6B5BC /* Features */,
 				5886F1CD2662298300C6B5BC /* Domain */,
 				5886F1CC2662297E00C6B5BC /* Extensions */,
 				5886F1CB2662297600C6B5BC /* DataManager */,
@@ -216,8 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				5886F21C266371E600C6B5BC /* Coordinator.swift */,
-				5886F21E266371FD00C6B5BC /* AppCoordinator.swift */,
-				5886F2202663727B00C6B5BC /* NewsCoordinator.swift */,
+				5886F22A2663760000C6B5BC /* ChildCoordinators */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -375,6 +381,33 @@
 				5886F21A266370D800C6B5BC /* LocalStorageKey.swift */,
 			);
 			path = LocalStorage;
+			sourceTree = "<group>";
+		};
+		5886F22A2663760000C6B5BC /* ChildCoordinators */ = {
+			isa = PBXGroup;
+			children = (
+				5886F21E266371FD00C6B5BC /* AppCoordinator.swift */,
+				5886F2202663727B00C6B5BC /* NewsCoordinator.swift */,
+			);
+			path = ChildCoordinators;
+			sourceTree = "<group>";
+		};
+		5886F22B2663768100C6B5BC /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				5886F22C2663769B00C6B5BC /* ArticlesList */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		5886F22C2663769B00C6B5BC /* ArticlesList */ = {
+			isa = PBXGroup;
+			children = (
+				5886F22E266376BF00C6B5BC /* ArticlesListViewModel.swift */,
+				5886F230266376D700C6B5BC /* ArticlesListViewController.swift */,
+				5886F233266376E900C6B5BC /* ArticlesListView.swift */,
+			);
+			path = ArticlesList;
 			sourceTree = "<group>";
 		};
 		78FE3B997BE1E6668A289BA3 /* Pods */ = {
@@ -649,6 +682,7 @@
 				5886F19C2662285B00C6B5BC /* ViewController.swift in Sources */,
 				5886F2292663743E00C6B5BC /* NewsChallengeDataManager+ArticleDetails.swift in Sources */,
 				5886F1982662285B00C6B5BC /* AppDelegate.swift in Sources */,
+				5886F234266376E900C6B5BC /* ArticlesListView.swift in Sources */,
 				5886F1F9266247ED00C6B5BC /* ArticlesList.swift in Sources */,
 				5886F2162662593D00C6B5BC /* CoreDataEntity.swift in Sources */,
 				5886F1E22662373000C6B5BC /* RemoteNewsChallengeDataManager.swift in Sources */,
@@ -659,6 +693,7 @@
 				5886F211266256E600C6B5BC /* ArticleCoreData.swift in Sources */,
 				5886F1FE26624B7E00C6B5BC /* RemoteNewsChallengeDataManagerImp.swift in Sources */,
 				5886F1D1266229B400C6B5BC /* NewsChallengeDataManager.swift in Sources */,
+				5886F22F266376BF00C6B5BC /* ArticlesListViewModel.swift in Sources */,
 				5886F19A2662285B00C6B5BC /* SceneDelegate.swift in Sources */,
 				5886F1DB26622C7400C6B5BC /* APIRequest.swift in Sources */,
 				5886F21D266371E600C6B5BC /* Coordinator.swift in Sources */,
@@ -671,6 +706,7 @@
 				5886F20126624CD400C6B5BC /* ServerArticle.swift in Sources */,
 				5886F20326624CF900C6B5BC /* ServerSource.swift in Sources */,
 				5886F1EB266238AC00C6B5BC /* ServerArticleList.swift in Sources */,
+				5886F231266376D700C6B5BC /* ArticlesListViewController.swift in Sources */,
 				5886F20D266253FD00C6B5BC /* LocalDataBase.swift in Sources */,
 				5886F1E02662300200C6B5BC /* Environment.swift in Sources */,
 			);

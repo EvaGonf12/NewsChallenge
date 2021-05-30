@@ -20,6 +20,8 @@ final class SessionAPI {
         let task = session.dataTask(with: request) { data, response, error in
             do {
                 if let data = data {
+                    print("PETICION")
+                    let str = String(decoding: data, as: UTF8.self)
                     let model = try JSONDecoder().decode(T.Response.self, from: data)
                     DispatchQueue.main.async {
                         completion(.success(model))

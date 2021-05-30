@@ -10,15 +10,12 @@ import Foundation
 struct FilterListNewsObject {
     var pageSize: String
     var page: String
-    var qInTitle: String
     
     init(pageSize: String,
-         page: String,
-         qInTitle: String) {
+         page: String) {
         
         self.pageSize = pageSize
         self.page = page
-        self.qInTitle = qInTitle
     }
 }
 
@@ -29,12 +26,10 @@ struct ArticlesListRequest: APIRequest {
     var topic: String = "covid"
     var pageSize: String
     var page: String
-    var qInTitle: String
     
     init(filterNewsObject: FilterListNewsObject) {
         self.pageSize = "\(filterNewsObject.pageSize)"
         self.page = "\(filterNewsObject.page)"
-        self.qInTitle = filterNewsObject.qInTitle
     }
     
     var method: Method {
@@ -49,7 +44,6 @@ struct ArticlesListRequest: APIRequest {
         return ["q": topic,
                 "pageSize": pageSize,
                 "page": page,
-                "qInTitle": qInTitle,
                 "sortBy": "publishedAt"]
     }
     

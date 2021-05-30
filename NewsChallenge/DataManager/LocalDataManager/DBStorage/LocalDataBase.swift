@@ -42,15 +42,13 @@ struct LocalDataBase: DbStorageService {
     }
     
     func clear() {
-        func clear() {
-            let fetchRequest: NSFetchRequest<NSFetchRequestResult> = CDArticle.fetchRequest()
-            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-            do {
-                try context.execute(deleteRequest)
-                persist()
-            } catch let error as NSError {
-                print(error)
-            }
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = CDArticle.fetchRequest()
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        do {
+            try context.execute(deleteRequest)
+            persist()
+        } catch let error as NSError {
+            print(error)
         }
     }
     
