@@ -36,7 +36,7 @@ class NewsCoordinator: Coordinator {
 }
 
 extension NewsCoordinator: ArticlesListCoordinatorDelegate {
-    func didSelect(article: String) {
+    func didSelect(article: ArticleCellViewModel) {
 //        let favouriteDetailViewModel = FavouriteDetailsViewModel(favId: favourite, favouriteDetailsDataManager: self.favouriteDetailsDataManager)
 //        let favouriteDetailViewController = FavouriteDetailViewController(viewModel: favouriteDetailViewModel)
 //        favouriteDetailViewController.title = NSLocalizedString("Topic Details", comment: "")

@@ -44,6 +44,7 @@ struct ArticlesListRequest: APIRequest {
         return ["q": topic,
                 "pageSize": pageSize,
                 "page": page,
+                "language": "es",
                 "sortBy": "publishedAt"]
     }
     

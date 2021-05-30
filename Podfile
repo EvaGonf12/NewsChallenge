@@ -9,6 +9,7 @@ target 'NewsChallenge' do
   pod 'RxSwift'
   pod 'Kingfisher'
   pod 'SnapKit'
+  pod 'UIScrollView-InfiniteScroll'
 
   target 'NewsChallengeTests' do
     inherit! :search_paths

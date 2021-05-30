@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 protocol ArticlesListCoordinatorDelegate: AnyObject {
-    func didSelect(article: String)
+    func didSelect(article: ArticleCellViewModel)
 }
 
 protocol ArticlesListViewDelegate: AnyObject {
@@ -23,7 +23,7 @@ class ArticlesListViewModel {
     weak var coordinatorDelegate: ArticlesListCoordinatorDelegate?
     weak var viewDelegate: ArticlesListViewDelegate?
     private let dataManager: ArticlesListDataManager
-    private var listViewModels: [String]
+    private var articleCellModels: [ArticleCellViewModel]
     private let pageSize: Int
     private var currentPage: Int
     private var querySearch: String
@@ -31,39 +31,28 @@ class ArticlesListViewModel {
 
     init(dataManager: ArticlesListDataManager) {
         self.dataManager = dataManager
-        self.listViewModels = []
+        self.articleCellModels = []
         self.title = "Articles"
-        self.pageSize = 20
+        self.pageSize = 5
         self.currentPage = 1
         self.querySearch = ""
     }
     
     func viewWasLoaded() {
-        // TODO: obtener datos de las listas
         self.getArticlesData()
     }
-    
 }
 
 
 // MARK: - Table Data
 extension ArticlesListViewModel {
-    func numberOfSections() -> Int {
-        return 1
-    }
-    
-    func numberOfRows(in section: Int) -> Int {
-        return listViewModels.count
-    }
-    
-    func viewModel(at indexPath: IndexPath) -> String? {
-        guard indexPath.row < listViewModels.count else { return nil }
-        return listViewModels[indexPath.row]
+    func getListModel() -> [ArticleCellViewModel] {
+        return articleCellModels
     }
     
     func didSelectRow(at indexPath: IndexPath) {
-        guard indexPath.row < listViewModels.count else { return }
-        coordinatorDelegate?.didSelect(article: listViewModels[indexPath.row])
+        guard indexPath.row < articleCellModels.count else { return }
+        coordinatorDelegate?.didSelect(article: articleCellModels[indexPath.row])
     }
     
     fileprivate func getArticlesData() {
@@ -77,17 +66,16 @@ extension ArticlesListViewModel {
             .subscribe { [weak self] objectArticles in
                 if self?.currentPage == 1 {
                     //self?.dataManager.clearListArticles()
-                    self?.listViewModels.removeAll()
+                    self?.articleCellModels.removeAll()
                 }
                 self?.dataManager.saveListArticles(objectArticles.articles)
-                let articles = self?.dataManager.fetchLocalListArticles()
-                print(articles?.count)
-//                for fav in listViewModels {
-//                    let favCell = FavouriteCellViewModel(favourite: fav)
-//                    self?.favViewModels.append(favCell)
-//                }
+                guard let articles = self?.dataManager.fetchLocalListArticles() else { return }
+                print(articles.count)
+                for article in articles {
+                    let articleCellModel = ArticleCellViewModel(article: article)
+                    self?.articleCellModels.append(articleCellModel)
+                }
                 self?.viewDelegate?.articlesFetched()
-                
             } onError: { [weak self] error in
                 self?.viewDelegate?.errorFetchingArticles(error: error.localizedDescription)
             

@@ -11,7 +11,12 @@ class ArticlesListViewController: UIViewController {
     
     // MARK: - Components
     
-    var articlesListView: ArticlesListView?
+    private lazy var articlesListView: ArticlesListViewContent = {
+        let content = ArticlesListViewContent()
+        content.delegate = self
+        content.translatesAutoresizingMaskIntoConstraints = false
+        return content
+    }()
     
     private var searchBarView: UISearchBar = {
         let searchBar = UISearchBar()
@@ -38,10 +43,7 @@ class ArticlesListViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
-        view = articlesListView
-        //articlesListView?.delegate = self
-        navigationItem.titleView = searchBarView
-        searchBarView.delegate = self
+        setupView()
     }
     
     override func viewDidLoad() {
@@ -52,16 +54,34 @@ class ArticlesListViewController: UIViewController {
         super.viewDidAppear(true)
         viewModel.viewWasLoaded()
     }
+    
+    fileprivate func setupView() {
+        view.addSubview(articlesListView)
+        navigationItem.titleView = searchBarView
+        searchBarView.delegate = self
+        articlesListView.setup(with: self.viewModel.getListModel())
+        
+        articlesListView.snp.makeConstraints { make in
+            make.edges.equalTo(view.snp.edges)
+        }
+    }
 }
 
 // MARK: - ArticlesListViewDelegate
 extension ArticlesListViewController: ArticlesListViewDelegate {
     func articlesFetched() {
-        
+        self.articlesListView.reloadData(articles: viewModel.getListModel())
     }
     
     func errorFetchingArticles(error: String) {
-        
+        print("ERROR", error)
+    }
+}
+
+// MARK: - ArticlesListViewContentDelegate
+extension ArticlesListViewController: ArticlesListViewContentDelegate {
+    func didSelectRow(at: IndexPath) {
+        self.viewModel.didSelectRow(at: at)
     }
 }
 
@@ -92,3 +112,4 @@ extension ArticlesListViewController: UISearchBarDelegate {
     self.view.endEditing(true)
   }
 }
+
