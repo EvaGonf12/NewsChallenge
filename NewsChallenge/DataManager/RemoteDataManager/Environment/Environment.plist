@@ -5,8 +5,8 @@
 	<key>HTTP_CONTENT_TYPE</key>
 	<string>application/json</string>
 	<key>API_KEY</key>
-	<string>2c857b99ab894a9bb99c11ecdb9c2695</string>
+	<string>70c06a365eb14bf581b0f4f7bb445737</string>
 	<key>BASE_URL</key>
-	<string>https://newsapi.org/</string>
+	<string>https://newsapi.org</string>
 </dict>
 </plist>

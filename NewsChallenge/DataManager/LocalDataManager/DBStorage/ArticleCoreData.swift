@@ -10,5 +10,6 @@ import Foundation
 protocol ArticleCoreData {
     var entity: CoreDataEntity { get }
     func fetchArticlesData(with query: String) -> [CDArticle]?
+    func fetchArticlesData() -> [CDArticle]?
     func saveArticles(_ articles: [Article])
 }

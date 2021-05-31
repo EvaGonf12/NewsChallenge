@@ -13,6 +13,17 @@ extension LocalDataBase: ArticleCoreData {
         return .CDArticle
     }
     
+    func fetchArticlesData() -> [CDArticle]? {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entity.rawValue)
+    
+        do {
+            let results = try context.fetch(fetchRequest) as? [CDArticle]
+            return results
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+    }
+    
     func fetchArticlesData(with query: String) -> [CDArticle]? {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entity.rawValue)
         fetchRequest.predicate = NSPredicate(format: "title CONTAINS %@\(query)")

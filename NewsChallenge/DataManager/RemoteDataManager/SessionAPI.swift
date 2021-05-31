@@ -18,20 +18,26 @@ final class SessionAPI {
         let request = request.requestWithBaseUrl()
         
         let task = session.dataTask(with: request) { data, response, error in
-            do {
+            if let error = error {
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            } else {
                 if let data = data {
-                    let model = try JSONDecoder().decode(T.Response.self, from: data)
-                    DispatchQueue.main.async {
-                        completion(.success(model))
+                    do {
+                        let model = try JSONDecoder().decode(T.Response.self, from: data)
+                        DispatchQueue.main.async {
+                            completion(.success(model))
+                        }
+                    } catch {
+                        DispatchQueue.main.async {
+                            completion(.failure(error))
+                        }
                     }
                 } else {
                     DispatchQueue.main.async {
                         completion(.failure(SessionAPIError.dataError))
                     }
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    completion(.failure(error))
                 }
             }
         }

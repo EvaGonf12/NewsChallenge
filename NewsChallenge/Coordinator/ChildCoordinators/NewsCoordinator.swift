@@ -12,6 +12,7 @@ class NewsCoordinator: Coordinator {
     let presenter: UINavigationController
     let articlesListDataManager: ArticlesListDataManager
     let articleDetailsDataManager: ArticleDetailsDataManager
+    var articlesViewModel: ArticlesListViewModel?
     
     init(presenter: UINavigationController,
          articlesListDataManager: ArticlesListDataManager,
@@ -22,33 +23,33 @@ class NewsCoordinator: Coordinator {
     }
     
     override func start() {
-//        let favouritesViewModel = FavouritesViewModel(favouritesDataManager: favouritesDataManager)
-//        let favouritesViewController = FavouritesViewController(viewModel: favouritesViewModel)
-//        favouritesViewController.title = NSLocalizedString("Favourites", comment: "")
-//        favouritesViewModel.viewDelegate = favouritesViewController
-//        favouritesViewModel.coordinatorDelegate = self
-//        self.favouritesViewModel = favouritesViewModel
-//        presenter.pushViewController(favouritesViewController, animated: false)
+        let articlesViewModel = ArticlesListViewModel(dataManager: self.articlesListDataManager)
+        let articlesViewController = ArticlesListViewController(viewModel: articlesViewModel)
+        articlesViewController.title = NSLocalizedString("Articles", comment: "")
+        articlesViewModel.viewDelegate = articlesViewController
+        articlesViewModel.coordinatorDelegate = self
+        self.articlesViewModel = articlesViewModel
+        presenter.pushViewController(articlesViewController, animated: false)
     }
 
     override func finish() {}
 }
-//
-//extension NewsCoordinator: FavouritesCoordinatorDelegate {
-//    func didSelect(favourite: String) {
+
+extension NewsCoordinator: ArticlesListCoordinatorDelegate {
+    func didSelect(article: ArticleCellViewModel) {
 //        let favouriteDetailViewModel = FavouriteDetailsViewModel(favId: favourite, favouriteDetailsDataManager: self.favouriteDetailsDataManager)
 //        let favouriteDetailViewController = FavouriteDetailViewController(viewModel: favouriteDetailViewModel)
 //        favouriteDetailViewController.title = NSLocalizedString("Topic Details", comment: "")
 //        favouriteDetailViewModel.viewDelegate = favouriteDetailViewController
 //        favouriteDetailViewModel.coordinatorDelegate = self
 //        self.presenter.pushViewController(favouriteDetailViewController, animated: true)
-//    }
-//}
-//
+    }
+}
+
 //extension NewsCoordinator: FavouriteDetailsCoordinatorDelegate {
 //
 //    func favouriteDetailaBackButtonTapped() {
-//        self.presenter.popViewController(animated: true)
+//        //self.presenter.popViewController(animated: true)
 //    }
 //}
 

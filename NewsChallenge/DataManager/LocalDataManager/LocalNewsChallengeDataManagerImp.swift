@@ -8,12 +8,17 @@
 import Foundation
 
 final class LocalNewsChallengeDataManagerImp: LocalNewsChallengeDataManager {
-
+    
     var coreDataStorage = LocalDataBase(databaseName: "Model")
     var localStorage: LocalStorageService = UserDefaultsLocalStorage(userDefaults: UserDefaults.standard)
     
-    func fetchNews(filterNewsObject: FilterListNewsObject) -> [CDArticle] {
-        let articles = coreDataStorage.fetchArticlesData(with: filterNewsObject.qInTitle) ?? []
+    func fetchNews() -> [CDArticle] {
+        let articles = coreDataStorage.fetchArticlesData() ?? []
+        return articles
+    }
+    
+    func filterNews(with filter: String) -> [CDArticle] {
+        let articles = coreDataStorage.fetchArticlesData(with: filter) ?? []
         return articles
     }
     
@@ -28,5 +33,10 @@ final class LocalNewsChallengeDataManagerImp: LocalNewsChallengeDataManager {
     
     func savePageList(_ page: Int) {
         localStorage.store(value: page, forKey: .currentPage)
+    }
+    
+    func clearList() {
+        localStorage.store(value: 1, forKey: .currentPage)
+        coreDataStorage.clear()
     }
 }
