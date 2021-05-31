@@ -95,7 +95,7 @@ extension ArticlesListViewController: UISearchBarDelegate {
   
   @objc private func filterList() {
     //articlesListView?.filter(by: searchBarView.text ?? "")
-    
+    viewModel.filter(by: searchBarView.text ?? "")
   }
   
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -104,7 +104,7 @@ extension ArticlesListViewController: UISearchBarDelegate {
   
   func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
     searchBarView.text = nil
-    //listUsersView?.filter(by: "")
+    viewModel.filter(by: "")
     searchBar.resignFirstResponder()
   }
   

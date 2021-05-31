@@ -19,7 +19,7 @@ extension NewsChallengeDataManager: ArticlesListDataManager {
     }
     
     func fetchLocalListArticles(with filter: String) -> [CDArticle] {
-        let articles = self.localDataManager.fetchNews()
+        let articles = self.localDataManager.filterNews(with: filter)
         return articles
     }
     

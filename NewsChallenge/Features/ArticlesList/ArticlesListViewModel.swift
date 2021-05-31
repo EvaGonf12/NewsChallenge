@@ -39,9 +39,7 @@ class ArticlesListViewModel {
     }
     
     func viewWasLoaded() {
-//        self.dataManager.clearListArticles()
-//        self.dataManager.updateCurrentPage(0)
-        self.getArticlesData()
+        getArticlesData()
     }
 }
 
@@ -66,12 +64,11 @@ extension ArticlesListViewModel {
         currentPage = dataManager.getCurrentPage() + 1
         let filter = FilterListNewsObject(pageSize: "\(self.pageSize)",
                                           page: "\(currentPage)")
-        print("CURRENT PAGE", currentPage)
+
         self.dataManager.fetchArticles(filter: filter)
             .subscribe(on: MainScheduler.instance)
             .observe(on: MainScheduler.instance)
             .subscribe { [weak self] objectArticles in
-                
                 self?.articleCellModels.removeAll()
                 self?.dataManager.saveListArticles(objectArticles.articles)
                 self?.dataManager.updateCurrentPage(self?.currentPage ?? 0)
@@ -96,5 +93,16 @@ extension ArticlesListViewModel {
             articleCellModels.append(articleCellModel)
         }
         viewDelegate?.articlesFetched()
+    }
+    
+    func filter(by query: String) {
+        articleCellModels.removeAll()
+        if query == "" {
+            let articles = dataManager.fetchLocalListArticles()
+            createArticlesModels(articles: articles)
+        } else {
+            let articles = dataManager.fetchLocalListArticles(with: query)
+            createArticlesModels(articles: articles)
+        }
     }
 }

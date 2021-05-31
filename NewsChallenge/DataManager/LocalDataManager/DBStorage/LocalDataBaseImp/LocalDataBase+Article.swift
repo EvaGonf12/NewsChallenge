@@ -27,7 +27,7 @@ extension LocalDataBase: ArticleCoreData {
     
     func fetchArticlesData(with query: String) -> [CDArticle]? {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entity.rawValue)
-        fetchRequest.predicate = NSPredicate(format: "title CONTAINS %@\(query)")
+        fetchRequest.predicate = NSPredicate(format: "title CONTAINS[c] %@", query.lowercased())
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
 
         do {
