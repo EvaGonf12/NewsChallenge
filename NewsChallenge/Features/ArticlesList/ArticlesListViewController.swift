@@ -42,20 +42,12 @@ class ArticlesListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func loadView() {
-        super.loadView()
-        setupView()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
         viewModel.viewWasLoaded()
+        setupView()
     }
-    
+
     fileprivate func setupView() {
         view.addSubview(articlesListView)
         navigationItem.titleView = searchBarView
@@ -103,6 +95,7 @@ extension ArticlesListViewController: UISearchBarDelegate {
   
   @objc private func filterList() {
     //articlesListView?.filter(by: searchBarView.text ?? "")
+    
   }
   
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

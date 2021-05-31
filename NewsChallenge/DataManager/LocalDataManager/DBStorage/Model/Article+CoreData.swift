@@ -13,18 +13,9 @@ extension CDArticle {
       self.init(context: context)
         image = article.image
         title = article.title
-        littleDescription = article.description
+        content = article.description
         resume = article.resume
-        date = article.date
+        date = article.date?.toDate()
     }
 }
 
-extension CDArticle {
-  var toArticle: Article {
-    return Article(image: image,
-                   title: title,
-                   resume: resume,
-                   description: littleDescription,
-                   date: date)
-  }
-}

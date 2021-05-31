@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 protocol ArticlesListCoordinatorDelegate: AnyObject {
-    func didSelect(article: ArticleCellViewModel)
+    func didSelect(article: CDArticle)
 }
 
 protocol ArticlesListViewDelegate: AnyObject {
@@ -54,7 +54,7 @@ extension ArticlesListViewModel {
     
     func didSelectRow(at indexPath: IndexPath) {
         guard indexPath.row < articleCellModels.count else { return }
-        coordinatorDelegate?.didSelect(article: articleCellModels[indexPath.row])
+        coordinatorDelegate?.didSelect(article: articleCellModels[indexPath.row].article)
     }
     
     func loadMoreArticles() {
@@ -63,10 +63,10 @@ extension ArticlesListViewModel {
     
     fileprivate func getArticlesData() {
         
-        self.currentPage = dataManager.getCurrentPage() + 1
+        currentPage = dataManager.getCurrentPage() + 1
         let filter = FilterListNewsObject(pageSize: "\(self.pageSize)",
                                           page: "\(currentPage)")
-        
+        print("CURRENT PAGE", currentPage)
         self.dataManager.fetchArticles(filter: filter)
             .subscribe(on: MainScheduler.instance)
             .observe(on: MainScheduler.instance)
@@ -74,10 +74,11 @@ extension ArticlesListViewModel {
                 
                 self?.articleCellModels.removeAll()
                 self?.dataManager.saveListArticles(objectArticles.articles)
-                
+                self?.dataManager.updateCurrentPage(self?.currentPage ?? 0)
+
                 guard let articles = self?.dataManager.fetchLocalListArticles() else { return }
                 self?.createArticlesModels(articles: articles)
-                
+
             } onError: { [weak self] error in
                 if self?.articleCellModels.count == 0 {
                     guard let articles = self?.dataManager.fetchLocalListArticles() else { return }
@@ -94,8 +95,6 @@ extension ArticlesListViewModel {
             let articleCellModel = ArticleCellViewModel(article: article)
             articleCellModels.append(articleCellModel)
         }
-        dataManager.updateCurrentPage(currentPage)
-
         viewDelegate?.articlesFetched()
     }
 }
