@@ -13,6 +13,7 @@ private enum ViewLayout {
 
 protocol ArticlesListViewContentDelegate: AnyObject {
     func didSelectRow(at: IndexPath)
+    func loadMoreArticles()
 }
 
 final class ArticlesListViewContent: UIView  {
@@ -44,6 +45,12 @@ final class ArticlesListViewContent: UIView  {
     func reloadData(articles: [ArticleCellViewModel]) {
         self.viewModel = articles
         tableView.reloadData()
+        endReload()
+    }
+    
+    func endReload() {
+        tableView.endUpdates()
+        tableView.finishInfiniteScroll()
     }
     
     private func setupView() {
@@ -54,6 +61,10 @@ final class ArticlesListViewContent: UIView  {
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
+        }
+        tableView.addInfiniteScroll { [weak self] _ in
+            self?.tableView.beginUpdates()
+            self?.delegate?.loadMoreArticles()
         }
     }
 }

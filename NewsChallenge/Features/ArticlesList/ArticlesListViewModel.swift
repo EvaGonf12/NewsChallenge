@@ -34,11 +34,13 @@ class ArticlesListViewModel {
         self.articleCellModels = []
         self.title = "Articles"
         self.pageSize = 5
-        self.currentPage = 1
+        self.currentPage = 0
         self.querySearch = ""
     }
     
     func viewWasLoaded() {
+//        self.dataManager.clearListArticles()
+//        self.dataManager.updateCurrentPage(0)
         self.getArticlesData()
     }
 }
@@ -55,30 +57,45 @@ extension ArticlesListViewModel {
         coordinatorDelegate?.didSelect(article: articleCellModels[indexPath.row])
     }
     
+    func loadMoreArticles() {
+        getArticlesData()
+    }
+    
     fileprivate func getArticlesData() {
-        print("getArticlesData")
+        
+        self.currentPage = dataManager.getCurrentPage() + 1
         let filter = FilterListNewsObject(pageSize: "\(self.pageSize)",
-                                          page: "\(self.currentPage)")
-        self.dataManager.clearListArticles()
+                                          page: "\(currentPage)")
+        
         self.dataManager.fetchArticles(filter: filter)
             .subscribe(on: MainScheduler.instance)
             .observe(on: MainScheduler.instance)
             .subscribe { [weak self] objectArticles in
-                if self?.currentPage == 1 {
-                    //self?.dataManager.clearListArticles()
-                    self?.articleCellModels.removeAll()
-                }
+                
+                self?.articleCellModels.removeAll()
                 self?.dataManager.saveListArticles(objectArticles.articles)
+                
                 guard let articles = self?.dataManager.fetchLocalListArticles() else { return }
-                print(articles.count)
-                for article in articles {
-                    let articleCellModel = ArticleCellViewModel(article: article)
-                    self?.articleCellModels.append(articleCellModel)
-                }
-                self?.viewDelegate?.articlesFetched()
+                self?.createArticlesModels(articles: articles)
+                
             } onError: { [weak self] error in
+                if self?.articleCellModels.count == 0 {
+                    guard let articles = self?.dataManager.fetchLocalListArticles() else { return }
+                    self?.createArticlesModels(articles: articles)
+                }                
                 self?.viewDelegate?.errorFetchingArticles(error: error.localizedDescription)
             
             } onCompleted: {}.disposed(by: disposeBag)
+    }
+    
+    fileprivate func createArticlesModels(articles: [CDArticle]) {
+        
+        for article in articles {
+            let articleCellModel = ArticleCellViewModel(article: article)
+            articleCellModels.append(articleCellModel)
+        }
+        dataManager.updateCurrentPage(currentPage)
+
+        viewDelegate?.articlesFetched()
     }
 }

@@ -136,6 +136,7 @@
 		5886F2422663900000C6B5BC /* Spacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
 		5886F2442663900900C6B5BC /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		5886F2462663A00400C6B5BC /* ArticlesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticlesListView.swift; sourceTree = "<group>"; };
+		5886F2482663A3E900C6B5BC /* RandomUser-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RandomUser-Bridging-Header.h"; sourceTree = "<group>"; };
 		632629F724C3DA106614C3B6 /* Pods_NewsChallenge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewsChallenge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BA211FB0375C707EC35CEC8 /* Pods_NewsChallenge_NewsChallengeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewsChallenge_NewsChallengeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		867919CE6F6358EDD54C3403 /* Pods-NewsChallengeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsChallengeTests.release.xcconfig"; path = "Target Support Files/Pods-NewsChallengeTests/Pods-NewsChallengeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -210,6 +211,7 @@
 				5886F1A32662285F00C6B5BC /* Assets.xcassets */,
 				5886F1A52662285F00C6B5BC /* LaunchScreen.storyboard */,
 				5886F1A82662285F00C6B5BC /* Info.plist */,
+				5886F2482663A3E900C6B5BC /* RandomUser-Bridging-Header.h */,
 			);
 			path = NewsChallenge;
 			sourceTree = "<group>";
@@ -950,6 +952,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = eu.hawaa.NewsChallenge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "NewsChallenge/RandomUser-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -970,6 +973,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = eu.hawaa.NewsChallenge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "NewsChallenge/RandomUser-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -31,4 +31,11 @@ extension NewsChallengeDataManager: ArticlesListDataManager {
         self.localDataManager.clearList()
     }
     
+    func getCurrentPage() -> Int {
+        return self.localDataManager.fetchPageList()
+    }
+    
+    func updateCurrentPage(_ page: Int) {
+        self.localDataManager.savePageList(page)
+    }
 }

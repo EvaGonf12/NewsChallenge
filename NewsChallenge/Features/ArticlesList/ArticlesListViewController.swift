@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Toast_Swift
 
 class ArticlesListViewController: UIViewController {
     
@@ -65,23 +66,29 @@ class ArticlesListViewController: UIViewController {
             make.edges.equalTo(view.snp.edges)
         }
     }
+    
 }
 
 // MARK: - ArticlesListViewDelegate
 extension ArticlesListViewController: ArticlesListViewDelegate {
     func articlesFetched() {
-        self.articlesListView.reloadData(articles: viewModel.getListModel())
+        articlesListView.reloadData(articles: viewModel.getListModel())
     }
     
     func errorFetchingArticles(error: String) {
-        print("ERROR", error)
+        articlesListView.endReload()
+        view.makeToast(error, duration: 3.0, position: .bottom)
     }
 }
 
 // MARK: - ArticlesListViewContentDelegate
 extension ArticlesListViewController: ArticlesListViewContentDelegate {
     func didSelectRow(at: IndexPath) {
-        self.viewModel.didSelectRow(at: at)
+        viewModel.didSelectRow(at: at)
+    }
+    
+    func loadMoreArticles() {
+        viewModel.loadMoreArticles()
     }
 }
 

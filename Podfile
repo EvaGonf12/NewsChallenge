@@ -10,6 +10,7 @@ target 'NewsChallenge' do
   pod 'Kingfisher'
   pod 'SnapKit'
   pod 'UIScrollView-InfiniteScroll'
+  pod 'Toast-Swift', '~> 5.0.1'
 
   target 'NewsChallengeTests' do
     inherit! :search_paths

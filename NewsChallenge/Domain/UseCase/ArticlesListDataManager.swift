@@ -21,6 +21,12 @@ protocol ArticlesListDataManager: AnyObject {
     /// Fetch all local articles
     func fetchLocalListArticles() -> [CDArticle]
     
+    /// Get current page
+    func getCurrentPage() -> Int
+    
+    /// Update current page
+    func updateCurrentPage(_ page: Int)
+    
     /// Remove Local Articles
     func clearListArticles()
 }
