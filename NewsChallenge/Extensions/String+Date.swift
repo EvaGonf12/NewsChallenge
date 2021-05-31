@@ -8,13 +8,14 @@
 import Foundation
 
 private enum Defaults {
-  static let defaultFormat = "dd MMM yyyy HH:mm"
+    static let defaultFormat = "dd MMM yyyy HH:mm"
+    static let serverFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
 }
 
 extension String {
   func toDate() -> Date? {
-    let dateFormatter = ISO8601DateFormatter()
-    dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = Defaults.serverFormat
     return dateFormatter.date(from: self)
   }
 }

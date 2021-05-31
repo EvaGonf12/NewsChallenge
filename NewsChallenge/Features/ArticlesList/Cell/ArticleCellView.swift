@@ -55,9 +55,9 @@ final class ArticleCellView: UIView {
     
     func setup(with model: ArticleCellViewModel) {
         setupView()
-        self.titleLabel.text = model.title
-        self.descriptionLabel.text = model.description
-        self.articleImageView.kf.setImage(with: model.image)
+        titleLabel.text = model.title
+        descriptionLabel.text = model.description
+        articleImageView.kf.setImage(with: model.image)
     }
     
     fileprivate func setupView() {

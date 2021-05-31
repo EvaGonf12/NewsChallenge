@@ -12,21 +12,21 @@ struct Article {
     let title: String
     let resume: String
     let description: String
-    let date: Date?
+    let date: String?
     
     init(apiResponse: ServerArticle) {
         self.image = apiResponse.urlToImage ?? ""
         self.title = apiResponse.title ?? ""
         self.resume = apiResponse.description ?? ""
         self.description = apiResponse.content ?? ""
-        self.date = apiResponse.publishedAt?.toDate()
+        self.date = apiResponse.publishedAt
     }
     
     init(image: String?,
          title: String?,
          resume: String?,
          description: String?,
-         date: Date?) {
+         date: String?) {
         
         self.image = image ?? ""
         self.title = title ?? ""

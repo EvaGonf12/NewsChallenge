@@ -36,20 +36,19 @@ class NewsCoordinator: Coordinator {
 }
 
 extension NewsCoordinator: ArticlesListCoordinatorDelegate {
-    func didSelect(article: ArticleCellViewModel) {
-//        let favouriteDetailViewModel = FavouriteDetailsViewModel(favId: favourite, favouriteDetailsDataManager: self.favouriteDetailsDataManager)
-//        let favouriteDetailViewController = FavouriteDetailViewController(viewModel: favouriteDetailViewModel)
-//        favouriteDetailViewController.title = NSLocalizedString("Topic Details", comment: "")
-//        favouriteDetailViewModel.viewDelegate = favouriteDetailViewController
-//        favouriteDetailViewModel.coordinatorDelegate = self
-//        self.presenter.pushViewController(favouriteDetailViewController, animated: true)
+    func didSelect(article: CDArticle) {
+        let articleDetailsViewModel = ArticleDetailsViewModel(article: article)
+        articleDetailsViewModel.coordinatorDelegate = self
+        let articleDetailsViewController = ArticleDetailsViewController(viewModel: articleDetailsViewModel)
+        articleDetailsViewModel.viewDelegate = articleDetailsViewController
+        presenter.pushViewController(articleDetailsViewController, animated: true)
     }
 }
 
-//extension NewsCoordinator: FavouriteDetailsCoordinatorDelegate {
-//
-//    func favouriteDetailaBackButtonTapped() {
-//        //self.presenter.popViewController(animated: true)
-//    }
-//}
+extension NewsCoordinator: ArticleDetailsCoordinatorDelegate {
+    func articleDetailsBackButtonTapped() {
+        self.presenter.popViewController(animated: true)
+    }
+    
+}
 

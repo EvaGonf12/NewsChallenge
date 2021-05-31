@@ -25,6 +25,7 @@ final class SessionAPI {
             } else {
                 if let data = data {
                     do {
+                        let str = String(decoding: data, as: UTF8.self)
                         let model = try JSONDecoder().decode(T.Response.self, from: data)
                         DispatchQueue.main.async {
                             completion(.success(model))
